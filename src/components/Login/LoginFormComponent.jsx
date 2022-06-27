@@ -30,13 +30,6 @@ class LoginFormComponent extends Component {
                             </div>
                         </div>
 
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <input type="password" className="form-control" placeholder="Password *" name="password" required="" onChange={this.handleChange}/>
-                            </div>
-                            <input type="submit" className="btnLogin btn btn-light" name="docsub1" value="Login" />
-                        </div>
-
                     </div>
 
                 </form>
@@ -45,8 +38,8 @@ class LoginFormComponent extends Component {
     }
 }
 
-// Login.propTypes = {
-//     setToken: PropTypes.func.isRequired
-// }
+Login.propTypes = {
+    setToken: PropTypes.func.isRequired
+}
 
 export default LoginFormComponent;
