@@ -11,7 +11,7 @@ class DoctorLogin extends Component {
     render() {
         return (
             <div>
-                
+                <LoginFormComponent userRole = {this.state.data}/>
             </div>
         );
     }
