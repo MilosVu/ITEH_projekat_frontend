@@ -15,6 +15,49 @@ async function loginUser(credentials) {
 
 class LoginFormComponent extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {userRole : this.props.userRole};
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        
+    }
+
+    handleChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+
+        console.log(JSON.stringify(this.state));
+
+        const response = await loginUser(
+            this.state
+        );
+
+        if(response.length !== 0){
+            // setToken(response);
+            alert("Loged in");
+            localStorage.setItem(this.state.userRole + "-token", JSON.stringify({
+                "userId" : response[0]["userId"],
+                "username" : response[0]["username"]
+            }));
+
+            window.location.reload();
+
+        }else{
+            alert("Wrong username or password");
+        }
+        
+    }
 
     render() {
         return (
@@ -30,6 +73,13 @@ class LoginFormComponent extends Component {
                             </div>
                         </div>
 
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <input type="password" className="form-control" placeholder="Password *" name="password" required="" onChange={this.handleChange}/>
+                            </div>
+                            <input type="submit" className="btnLogin btn btn-light" name="docsub1" value="Login" />
+                        </div>
+
                     </div>
 
                 </form>
@@ -38,8 +88,8 @@ class LoginFormComponent extends Component {
     }
 }
 
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-}
+// Login.propTypes = {
+//     setToken: PropTypes.func.isRequired
+// }
 
 export default LoginFormComponent;
